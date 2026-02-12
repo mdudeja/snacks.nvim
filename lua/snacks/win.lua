@@ -92,7 +92,8 @@ local defaults = {
   position = "float",
   minimal = true,
   wo = {
-    winhighlight = "Normal:SnacksNormal,NormalNC:SnacksNormalNC,WinBar:SnacksWinBar,WinBarNC:SnacksWinBarNC,FloatTitle:SnacksTitle,FloatFooter:SnacksFooter,WinSeparator:SnacksWinSeparator",
+    winhighlight =
+    "Normal:SnacksNormal,NormalNC:SnacksNormalNC,WinBar:SnacksWinBar,WinBarNC:SnacksWinBarNC,FloatTitle:SnacksTitle,FloatFooter:SnacksFooter,WinSeparator:SnacksWinSeparator",
   },
   bo = {},
   title_pos = "center",
@@ -355,23 +356,23 @@ function M:action(actions)
     end
   end
   return function()
-    for _, name in ipairs(actions) do
-      if self.opts.actions and self.opts.actions[name] then
-        local a = self.opts.actions[name]
-        local fn = type(a) == "function" and a or a.action
-        local ret = fn(self)
-        if ret then
-          return type(ret) == "string" and ret or nil
+        for _, name in ipairs(actions) do
+          if self.opts.actions and self.opts.actions[name] then
+            local a = self.opts.actions[name]
+            local fn = type(a) == "function" and a or a.action
+            local ret = fn(self)
+            if ret then
+              return type(ret) == "string" and ret or nil
+            end
+          elseif self[name] then
+            self[name](self)
+            return
+          else
+            return name
+          end
         end
-      elseif self[name] then
-        self[name](self)
-        return
-      else
-        return name
-      end
-    end
-  end,
-    table.concat(desc, ", ")
+      end,
+      table.concat(desc, ", ")
 end
 
 ---@param opts? {col_width?: number, key_width?: number, win?: snacks.win.Config}
@@ -742,10 +743,10 @@ function M:open_win()
     if parent == 0 and self.opts.stack then
       for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
         if
-          vim.w[win].snacks_win
-          and vim.w[win].snacks_win.relative == relative
-          and vim.w[win].snacks_win.position == position
-          and vim.w[win].snacks_win.stack == true
+            vim.w[win].snacks_win
+            and vim.w[win].snacks_win.relative == relative
+            and vim.w[win].snacks_win.position == position
+            and vim.w[win].snacks_win.stack == true
         then
           parent = win
           relative = "win"
@@ -784,8 +785,8 @@ function M:equalize()
   end
   local all = vim.tbl_filter(function(win)
     return vim.w[win].snacks_win
-      and vim.w[win].snacks_win.relative == self.opts.relative
-      and vim.w[win].snacks_win.position == self.opts.position
+        and vim.w[win].snacks_win.relative == self.opts.relative
+        and vim.w[win].snacks_win.position == self.opts.position
   end, vim.api.nvim_tabpage_list_wins(0))
   if #all <= 1 then
     return
@@ -1053,10 +1054,10 @@ function M:drop()
   ---@cast backdrop snacks.win.Backdrop
 
   if
-    (Snacks.util.is_transparent() and backdrop.transparent)
-    or not vim.o.termguicolors
-    or backdrop.blend == 100
-    or not self:is_floating()
+      (Snacks.util.is_transparent() and backdrop.transparent)
+      or not vim.o.termguicolors
+      or backdrop.blend == 100
+      or not self:is_floating()
   then
     return
   end
@@ -1280,7 +1281,7 @@ function M:dim(parent)
   local function size(s, ps, border_offset)
     s = type(s) == "function" and s(self) or s or 0
     ---@cast s number
-    if s == 0 then -- full size
+    if s == 0 then    -- full size
       return ps - border_offset
     elseif s < 1 then -- relative size
       return math.floor(ps * s) - border_offset
@@ -1301,7 +1302,7 @@ function M:dim(parent)
       return math.floor((ps - s) / 2) - border_from
     end
     ---@cast p number
-    if p < 0 then -- negative position
+    if p < 0 then               -- negative position
       return ps - s + p - border_from - border_to
     elseif p < 1 and p > 0 then -- relative position
       return math.floor(ps * p) + border_from

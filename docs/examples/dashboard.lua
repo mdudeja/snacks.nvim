@@ -8,7 +8,7 @@ M.examples = {}
 M.examples.doom = {
   sections = {
     { section = "header" },
-    { section = "keys", gap = 1, padding = 1 },
+    { section = "keys",   gap = 1, padding = 1 },
     { section = "startup" },
   },
 }
@@ -22,14 +22,14 @@ M.examples.startify = {
     end,
   },
   sections = {
-    { section = "terminal", cmd = "fortune -s | cowsay", hl = "header", padding = 1, indent = 8 },
-    { title = "MRU", padding = 1 },
-    { section = "recent_files", limit = 8, padding = 1 },
-    { title = "MRU ", file = vim.fn.fnamemodify(".", ":~"), padding = 1 },
-    { section = "recent_files", cwd = true, limit = 8, padding = 1 },
-    { title = "Sessions", padding = 1 },
-    { section = "projects", padding = 1 },
-    { title = "Bookmarks", padding = 1 },
+    { section = "terminal",     cmd = "fortune -s | cowsay",          hl = "header", padding = 1, indent = 8 },
+    { title = "MRU",            padding = 1 },
+    { section = "recent_files", limit = 8,                            padding = 1 },
+    { title = "MRU ",           file = vim.fn.fnamemodify(".", ":~"), padding = 1 },
+    { section = "recent_files", cwd = true,                           limit = 8,     padding = 1 },
+    { title = "Sessions",       padding = 1 },
+    { section = "projects",     padding = 1 },
+    { title = "Bookmarks",      padding = 1 },
     { section = "keys" },
   },
 }
@@ -39,16 +39,16 @@ M.examples.startify = {
 M.examples.advanced = {
   sections = {
     { section = "header" },
-    {
-      pane = 2,
-      section = "terminal",
-      cmd = "colorscript -e square",
-      height = 5,
-      padding = 1,
-    },
+    -- {
+    --   pane = 2,
+    --   section = "terminal",
+    --   cmd = "colorscript -e square",
+    --   height = 5,
+    --   padding = 1,
+    -- },
     { section = "keys", gap = 1, padding = 1 },
-    { pane = 2, icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 1 },
-    { pane = 2, icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
+    { pane = 2, icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 3 },
+    { pane = 2, icon = " ", title = "Projects", section = "projects", indent = 2, padding = 3 },
     {
       pane = 2,
       icon = " ",
@@ -79,7 +79,7 @@ M.examples.github = {
       height = 5,
       padding = 1,
     },
-    { section = "keys", gap = 1, padding = 1 },
+    { section = "keys",  gap = 1, padding = 1 },
     {
       pane = 2,
       icon = " ",
@@ -182,7 +182,7 @@ M.examples.chafa = {
     },
     {
       pane = 2,
-      { section = "keys", gap = 1, padding = 1 },
+      { section = "keys",   gap = 1, padding = 1 },
       { section = "startup" },
     },
   },
@@ -193,7 +193,7 @@ M.examples.chafa = {
 M.examples.pokemon = {
   sections = {
     { section = "header" },
-    { section = "keys", gap = 1, padding = 1 },
+    { section = "keys",   gap = 1, padding = 1 },
     { section = "startup" },
     {
       section = "terminal",

@@ -170,16 +170,16 @@ function M.multi(opts)
     return previews[ctx.item.source_id](ctx)
   end
   opts.confirm = opts.confirm
-    or function(picker, item, action)
-      return confirms[item.source_id](picker, item, action)
-    end
+      or function(picker, item, action)
+        return confirms[item.source_id](picker, item, action)
+      end
 end
 
 ---@param opts snacks.picker.Config
 function M.format(opts)
   local ret = type(opts.format) == "string" and (Snacks.picker.format[opts.format] or M.field(opts.format))
-    or opts.format
-    or Snacks.picker.format.file
+      or opts.format
+      or Snacks.picker.format.file
   ---@cast ret snacks.picker.format
   return ret
 end
@@ -187,8 +187,8 @@ end
 ---@param opts snacks.picker.Config
 function M.transform(opts)
   local ret = type(opts.transform) == "string" and require("snacks.picker.transform")[opts.transform]
-    or opts.transform
-    or nil
+      or opts.transform
+      or nil
   ---@cast ret snacks.picker.transform?
   return ret
 end
