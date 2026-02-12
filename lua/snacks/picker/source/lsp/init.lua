@@ -113,18 +113,18 @@ function R.new()
   R._id = R._id + 1
 
   self.async
-    :on(
-      "abort",
-      vim.schedule_wrap(function()
-        self:cancel()
-      end)
-    )
-    :on(
-      "done",
-      vim.schedule_wrap(function()
-        pcall(vim.api.nvim_del_autocmd, self.autocmd_id)
-      end)
-    )
+      :on(
+        "abort",
+        vim.schedule_wrap(function()
+          self:cancel()
+        end)
+      )
+      :on(
+        "done",
+        vim.schedule_wrap(function()
+          pcall(vim.api.nvim_del_autocmd, self.autocmd_id)
+        end)
+      )
   return self
 end
 
@@ -441,7 +441,7 @@ function M.symbols(opts, ctx)
 
   local method = opts.workspace and "workspace/symbol" or "textDocument/documentSymbol"
   local p = opts.workspace and { query = ctx.filter.search }
-    or { textDocument = vim.lsp.util.make_text_document_params(buf) }
+      or { textDocument = vim.lsp.util.make_text_document_params(buf) }
 
   ---@async
   ---@param cb async fun(item: snacks.picker.finder.Item)
@@ -583,6 +583,59 @@ end
 ---@type snacks.picker.finder
 function M.declarations(opts, ctx)
   return M.get_locations("textDocument/declaration", opts, ctx.filter)
+end
+
+---@param opts snacks.picker.lsp.Config
+---@type snacks.picker.finder
+function M.workspace_folders(opts, ctx)
+  local result = {}
+  local listed = vim.lsp.buf.list_workspace_folders()
+  local seen = {}
+
+  if #listed == 0 then
+    return function()
+      return
+    end
+  end
+
+  local function get_folders(folder)
+    if seen[folder] then
+      return
+    end
+    seen[folder] = true
+    table.insert(result, folder)
+    for child, childtype in vim.fs.dir(folder, { depth = 1 }) do
+      if child == ".git" then
+        goto continue
+      end
+      local child_path = vim.fs.joinpath(folder, child)
+      if childtype == "directory" then
+        get_folders(child_path)
+      end
+      ::continue::
+    end
+  end
+
+  for _, folder in ipairs(listed) do
+    get_folders(folder)
+  end
+
+
+
+  ---@async
+  ---@param cb async fun(item: snacks.picker.finder.Item)
+  return function(cb)
+    for _, folder in ipairs(result or {}) do
+      --- @type snacks.picker.finder.Item
+      local item = {
+        text = vim.fs.relpath(vim.tbl_values(listed)[1], folder) or vim.fs.basename(folder),
+        name = vim.fs.basename(folder),
+        path = folder,
+      }
+      ---@diagnostic disable-next-line: await-in-sync
+      cb(item)
+    end
+  end
 end
 
 return M

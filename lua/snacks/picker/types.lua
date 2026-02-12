@@ -47,6 +47,7 @@
 ---@field lsp_symbols fun(opts?: snacks.picker.lsp.symbols.Config|{}): snacks.Picker
 ---@field lsp_type_definitions fun(opts?: snacks.picker.lsp.Config|{}): snacks.Picker
 ---@field lsp_workspace_symbols fun(opts?: snacks.picker.lsp.symbols.Config|{}): snacks.Picker
+---@field lsp_workspace_folders fun(opts?: snacks.picker.lsp.Config|{}): snacks.Picker
 ---@field man fun(opts?: snacks.picker.Config|{}): snacks.Picker
 ---@field marks fun(opts?: snacks.picker.marks.Config|{}): snacks.Picker
 ---@field notifications fun(opts?: snacks.picker.notifications.Config|{}): snacks.Picker

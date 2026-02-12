@@ -793,6 +793,22 @@ M.lsp_type_definitions = {
   jump = { tagstack = true, reuse_win = true },
 }
 
+---@type snacks.picker.lsp.Config
+M.lsp_workspace_folders = {
+  finder = "lsp_workspace_folders",
+  format = "text",
+  preview = "none",
+  confirm = function(picker, item)
+    picker:close()
+    if item then
+      vim.schedule(function()
+        vim.cmd("cd " .. item.path)
+        Snacks.notify("Changed workspace folder to " .. item.path)
+      end)
+    end
+  end,
+}
+
 M.man = {
   finder = "system_man",
   format = "man",
@@ -893,7 +909,7 @@ M.projects = {
   patterns = { ".git", "_darcs", ".hg", ".bzr", ".svn", "package.json", "Makefile" },
   recent = true,
   matcher = {
-    frecency = true, -- use frecency boosting
+    frecency = true,   -- use frecency boosting
     sort_empty = true, -- sort even when the filter is empty
     cwd_bonus = false,
   },
@@ -999,10 +1015,10 @@ M.select = {
 ---@field filter? snacks.picker.filter.Config
 M.smart = {
   multi = { "buffers", "recent", "files" },
-  format = "file", -- use `file` format for all sources
+  format = "file",     -- use `file` format for all sources
   matcher = {
-    cwd_bonus = true, -- boost cwd matches
-    frecency = true, -- use frecency boosting
+    cwd_bonus = true,  -- boost cwd matches
+    frecency = true,   -- use frecency boosting
     sort_empty = true, -- sort even when the filter is empty
   },
   transform = "unique_file",

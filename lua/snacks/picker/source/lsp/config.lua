@@ -95,14 +95,14 @@ function M.find(opts, ctx)
   local items = {} ---@type table<string, snacks.picker.lsp.config.Item>
   for _, client in ipairs(vim.lsp.get_clients()) do
     items[client.name] = items[client.name]
-      or {
-        name = client.name,
-        buffers = {},
-        config = client.config,
-        attached = true,
-        enabled = true,
-        cmd = client.config.cmd,
-      }
+        or {
+          name = client.name,
+          buffers = {},
+          config = client.config,
+          attached = true,
+          enabled = true,
+          cmd = client.config.cmd,
+        }
     for buf in pairs(client.attached_buffers) do
       items[client.name].buffers[buf] = true
     end
