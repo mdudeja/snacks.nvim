@@ -92,7 +92,7 @@ M.explorer = {
         ["u"] = { "explorer_update", desc = "Explorer: Update item" },
         ["<c-c>"] = { "tcd", desc = "Explorer: Change directory" },
         ["<leader>/"] = { "picker_grep", desc = "Explorer: Grep" },
-        ["<c-t>"] = { "terminal", desc = "Explorer: Open terminal" },
+        ["<leader>t"] = { "terminal", desc = "Explorer: Open terminal" },
         ["."] = { "explorer_focus", desc = "Explorer: Focus" },
         ["I"] = { "toggle_ignored", desc = "Explorer: Toggle ignored files" },
         ["H"] = { "toggle_hidden", desc = "Explorer: Toggle hidden files" },
