@@ -50,7 +50,7 @@ Snacks.config.style("terminal", {
           end)
         end
       end,
-      desc = "Terminal: Go to file under cursor"
+      desc = "Terminal: Go to file under cursor",
     },
     term_normal = {
       "<esc>",
@@ -97,7 +97,7 @@ function M.open(cmd, opts)
   }, opts.win, { show = false })
   opts = vim.deepcopy(opts)
   opts.win.wo.winbar = opts.win.wo.winbar
-      or (opts.win.position == "float" and "" or (id .. ": %{get(b:, 'term_title', '')}"))
+    or (opts.win.position == "float" and "" or (id .. ": %{get(b:, 'term_title', '')}"))
 
   if opts.override then
     return opts.override(cmd, opts)
